@@ -7,6 +7,10 @@ class BackendRegister extends Database
 
     public function CreateUser(string $user, string $password, string $repeatedPassword)
     {
+        $this->ValidateFields($user, $password, $repeatedPassword);
+        $this->ValidateUsername($user);
+        $this->ValidatePassword($password);
+        $this->ValidateRepeatedPassword($password, $repeatedPassword);
         $this->CheckIfUserExists($user);
 
         $statement = $this->connection->prepare("INSERT INTO $this->table (username, password) values (:username, :password)");
@@ -27,6 +31,38 @@ class BackendRegister extends Database
         else
         {
             echo 'created';
+        }
+    }
+
+    private function ValidateUsername($username)
+    {
+        if($username == null)
+        {
+            echo "Username is required" . PHP_EOL;
+        }
+    }
+
+    private function ValidatePassword($password)
+    {
+        if($password == null)
+        {
+            echo "Password is required" . PHP_EOL;
+        }
+    }
+
+    private function ValidateRepeatedPassword($password, $repeatedPassword)
+    {
+        if($password != $repeatedPassword)
+        {
+            echo "Passwords must match" . PHP_EOL;
+        }
+    }
+
+    private function ValidateFields($username, $password, $repeatedPassword)
+    {
+        if($username == null && $password == null && $repeatedPassword == null)
+        {
+            echo 'Please fill in the required fields' . PHP_EOL;
         }
     }
 }

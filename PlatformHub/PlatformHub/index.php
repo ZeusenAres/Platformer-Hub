@@ -11,6 +11,11 @@
     <form action="index.php" method="post">
         <table>
             <tr>
+                <td>
+                    <input type="submit" name="logout"/>
+                </td>
+            </tr>
+            <tr>
                 <td>Gebruiker</td>
                 <td>
                     <input type="text" name="user" />
@@ -28,9 +33,19 @@
                     <a href="register.php">Nieuwe gebruiker</a>
                 </td>
             </tr>
+            <tr>
+                <td>
+                    <a href="home.php">Homepage</a>
+                </td>
+            </tr>
         </table>
     </form>
     <?php
+    if(isset($_POST['logout']))
+    {
+        unset($_SESSION['user']);
+    }
+
     if (isset($_POST['login']))
     {
         try
@@ -38,13 +53,14 @@
             $user = $_POST['user'];
             if ($db->Login($user, $_POST['password']))
             {
+                unset($_SESSION['user']);
                 $_SESSION['user'] = $user;
                 echo "You are logged in as " . $_SESSION['user'];
             }
             else
             {
                 echo 'ongeldig user id of wachtwoord<br/>';
-                unset( $_SESSION['user']);
+                unset($_SESSION['user']);
             }
         }
         catch (Exception $ex)

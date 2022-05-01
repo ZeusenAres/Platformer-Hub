@@ -5,19 +5,28 @@ class BackendLogin extends Database
 {
     private string $table = 'users';
 
+    private string $username;
+
     public function Login(string $user, string $password)
     {
         $this->ValidateUser($user);
         $this->ValidatePassword($password);
         $this->CheckPassword($user, $password);
-        if($_SESSION['user'] != null && strlen(trim($password)) > 0 && $this->CheckPassword($user, $password))
+        if($_SESSION['user'] != null && strlen(trim($password)) > 0)
         {
-            echo 'welcome ' . $_SESSION['user'] . PHP_EOL;
+            echo 'welcome ' . PHP_EOL;
+            unset($_SESSION['user']);
+            $this->username = $user;
         }
         else
         {
             echo '[Invalid Credentials]' . PHP_EOL;
         }
+    }
+
+    public function getUsername() : string
+    {
+        return $this->username;
     }
 
     private function ValidateUser(string $user)

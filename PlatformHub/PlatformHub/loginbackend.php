@@ -7,5 +7,8 @@ $db->DBConnect();
 $username = $_POST['username'];
 $password = $_POST['password'];
 
-$db->Login($username, $password);
+if($db->Login($username, $password))
+{
+    $_SESSION['user'] = $username;
+}
 ?>

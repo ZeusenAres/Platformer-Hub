@@ -12,27 +12,5 @@ $repeatedPassword = $_POST['repeatedpassword'];
 //$password = 'd';
 //$repeatedPassword = 'd';
 
-if($username == null)
-{
-    echo "Username is required" . PHP_EOL;
-}
-
-if($password == null)
-{
-    echo "Password is required" . PHP_EOL;
-}
-
-if($password != $repeatedPassword)
-{
-    echo "Passwords must match" . PHP_EOL;
-}
-
-if($username != null && $password && $repeatedPassword != null)
-{
-    $db->CreateUser($username, $password, $repeatedPassword);
-}
-else
-{
-    echo 'Please fill in the required fields' . PHP_EOL;
-}
+$db->CreateUser($username, $password, $repeatedPassword);
 ?>
