@@ -9,14 +9,27 @@ class BackendLogin extends Database
     {
         $this->ValidateUser($user);
         $this->ValidatePassword($password);
-        return $this->CheckPassword($user, $password);
+        $this->CheckPassword($user, $password);
+        if($_SESSION['user'] != null && strlen(trim($password)) > 0 && $this->CheckPassword($user, $password))
+        {
+            echo 'welcome ' . $_SESSION['user'] . PHP_EOL;
+        }
+        else
+        {
+            echo '[Invalid Credentials]' . PHP_EOL;
+        }
     }
 
     private function ValidateUser(string $user)
     {
         if (strlen(trim($user)) == 0)
         {
-            echo 'Geef een usernaam op';
+            echo '[Geef een usernaam op]' . PHP_EOL;
+        }
+
+        if (strlen(trim($user)) > 0)
+        {
+            $_SESSION['user'] = $user;
         }
     }
 
@@ -24,7 +37,7 @@ class BackendLogin extends Database
     {
         if (strlen(trim($password)) == 0)
         {
-            echo 'Geef een wachtwoord op';
+            echo '[Geef een wachtwoord op]' . PHP_EOL;
         }
     }
 
@@ -36,6 +49,6 @@ class BackendLogin extends Database
               ":username" => $user
             ]);
         $result = $statement->fetch();
-        return $result != null && password_verify($password,$result['password']);
+        return $result != null && password_verify($password, $result['password']);
     }
 }

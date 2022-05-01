@@ -64,14 +64,4 @@ class Register extends Database
             throw new Exception('Wachtwoorden moeten hetzelfde zijn');
         }
     }
-
-    public function getUsers()
-    {
-        $statement = $this->connection->prepare("select * from $this->table where 1");
-        $statement->execute();
-        while($row = $statement->fetch())
-        {
-            echo ' Player ' . $row['username'] . ' has earned ' . $row['coins'] . ' coins |--|';
-        }
-    }
 }

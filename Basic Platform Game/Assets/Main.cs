@@ -6,6 +6,7 @@ public class Main : MonoBehaviour
 {
     public static Main main;
     public Web web;
+
     void Start()
     {
         main = this;

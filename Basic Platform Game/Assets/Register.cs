@@ -10,6 +10,7 @@ public class Register : MonoBehaviour
     [SerializeField] InputField Password;
     [SerializeField] InputField RepeatPassword;
     [SerializeField] Button Submit;
+
     void Start()
     {
         Submit.onClick.AddListener(() =>

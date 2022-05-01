@@ -12,29 +12,18 @@ class BackendRegister extends Database
         $this->ValidateRepeatedPassword($password, $repeatedPassword);
         $this->CheckIfUserExists($user);
 
-        $statement = $this->connection->prepare(
-        "INSERT INTO $this->table (username, password) values (:username, :password)");
+        $statement = $this->connection->prepare("INSERT INTO $this->table (username, password) values (:username, :password)");
         $statement->execute([
             ":username" => trim($user),
-             ":password" => password_hash(trim($password), PASSWORD_DEFAULT)
-             ]);
-    }
-
-    private function CheckIfUserExists(string $user)
-    {
-        $statement = $this->connection->prepare("select username from $this->table where username=:username");
-        $statement->execute([":username" => $user]);
-        if ($statement->fetch() == 1)
-        {
-            echo "User $user bestaat al!";
-        }
+            ":password" => password_hash(trim($password), PASSWORD_DEFAULT)
+        ]);
     }
 
     private function ValidateUser(string $user)
     {
         if (strlen(trim($user)) == 0)
         {
-            throw new Exception('Geef een usernaam op');
+            echo '[Geef een usernaam op]' . PHP_EOL;
         }
     }
 
@@ -42,26 +31,25 @@ class BackendRegister extends Database
     {
         if (strlen(trim($password)) == 0)
         {
-            throw new Exception('Geef een wachtwoord op');
+            echo '[Geef een wachtwoord op]' . PHP_EOL;
         }
-    }
-
-    private function CheckPassword(string $user, string $password) : bool
-    {
-        $statement = $this->connection->prepare
-                ("select password from $this->table where username like :username");
-        $statement->execute([
-              ":username" => $user
-            ]);
-        $result = $statement->fetch();
-        return $result != null && password_verify($password,$result['password']);
     }
 
     private function ValidateRepeatedPassword(string $password, string $repeatedPassword)
     {
         if (trim($password) != trim($repeatedPassword))
         {
-            throw new Exception('Wachtwoorden moeten hetzelfde zijn');
+            echo '[Wachtwoorden moeten hetzelfde zijn]' . PHP_EOL;
+        }
+    }
+
+    private function CheckIfUserExists(string $user)
+    {
+        $statement = $this->connection->prepare("select username from $this->table where username = :username");
+        $statement->execute([":username" => $user]);
+        if ($statement->fetch() == 1)
+        {
+            echo "User $user already exists!" . PHP_EOL;
         }
     }
 }

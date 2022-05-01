@@ -1,7 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 public class Web : MonoBehaviour
 {
@@ -9,15 +9,13 @@ public class Web : MonoBehaviour
     [System.Obsolete]
     void Start()
     {
-        //StartCoroutine(GetText());
-        //StartCoroutine(Login("Customer and shit", "d"));
-        //StartCoroutine(Register("newUser3", "d"));
+        StartCoroutine(Connection());
     }
 
     [System.Obsolete]
-    IEnumerator GetText()
+    IEnumerator Connection()
     {
-        using (UnityWebRequest www = UnityWebRequest.Get("http://localhost/Game%20Development/PlatformHub/PlatformHub/message.php"))
+        using (UnityWebRequest www = UnityWebRequest.Get("http://localhost/GameDev/PlatformHub/PlatformHub/message.php"))
         {
             yield return www.Send();
 
@@ -35,13 +33,14 @@ public class Web : MonoBehaviour
             }
         }
     }
+
     public IEnumerator Login(string username, string password)
     {
         WWWForm form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password", password);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/Game%20Development/PlatformHub/PlatformHub/loginbackend.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/GameDev/PlatformHub/PlatformHub/loginbackend.php", form))
         {
             yield return www.SendWebRequest();
 
@@ -51,7 +50,16 @@ public class Web : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                string message = www.downloadHandler.text;
+
+                if (message.Contains("welcome") == true)
+                {
+                    SceneManager.LoadScene("Level");
+                }
+                else
+                {
+                    Debug.Log(message);
+                }
             }
         }
     }
@@ -63,7 +71,7 @@ public class Web : MonoBehaviour
         form.AddField("password", password);
         form.AddField("repeatedpassword", repeatedPassword);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/Game%20Development/PlatformHub/PlatformHub/registerbackend.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/GameDev/PlatformHub/PlatformHub/registerbackend.php", form))
         {
             yield return www.SendWebRequest();
 
@@ -73,7 +81,12 @@ public class Web : MonoBehaviour
             }
             else
             {
-                Debug.Log(www.downloadHandler.text);
+                string message = www.downloadHandler.text;
+                
+                if(message.Contains("created") == true)
+                {
+                    SceneManager.LoadScene("Login");
+                }
             }
         }
     }

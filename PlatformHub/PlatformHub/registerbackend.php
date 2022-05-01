@@ -4,16 +4,20 @@ require_once 'Classes/BackendRegister.class.php';
 $db = new BackendRegister();
 $db->DBConnect();
 
-$username = $_POST['username'];
-$password = $_POST['password'];
-$repeatedPassword = $_POST['repeatedpassword'];
+//$username = $_POST['username'];
+//$password = $_POST['password'];
+//$repeatedPassword = $_POST['repeatedpassword'];
 
-try
+$username = 'abse';
+$password = 'd';
+$repeatedPassword = 'd';
+
+if($username != null && $password != null && $repeatedPassword != null)
 {
     $db->CreateUser($username, $password, $repeatedPassword);
+    echo 'created';
 }
-catch(Exception $e)
-{
-    echo $ex->getMessage();
+else{
+    
 }
 ?>

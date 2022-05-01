@@ -302,10 +302,10 @@ RectTransform:
   m_Father: {fileID: 1003175594}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10.2}
-  m_SizeDelta: {x: 0, y: -18.379}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0.000000020607022, y: -232}
+  m_SizeDelta: {x: 1034, y: 565.621}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &86197718
 MonoBehaviour:
@@ -590,8 +590,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 233.178, y: 188.38}
+  m_AnchoredPosition: {x: 0.0022888, y: 0.00030518}
+  m_SizeDelta: {x: 1054.2, y: 603.86}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &560430785
 MonoBehaviour:
@@ -887,6 +887,7 @@ MonoBehaviour:
   Password: {fileID: 516101797}
   RepeatPassword: {fileID: 1764366875}
   Submit: {fileID: 707899813}
+  scene: Login
 --- !u!114 &1003175596
 MonoBehaviour:
   m_ObjectHideFlags: 0
