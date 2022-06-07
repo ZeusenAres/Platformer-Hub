@@ -40,8 +40,10 @@ public class Web : MonoBehaviour
         form.AddField("username", username);
         form.AddField("password", password);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/GitHub/GameDev/PlatformHub/PlatformHub/loginbackend.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/GitHub/GameDev/PlatformHub/PlatformHub/loginUnity.php", form))
         {
+            www.certificateHandler = new AcceptAllCertificatesSignedWithASpecificPublicKey();
+
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
@@ -64,15 +66,17 @@ public class Web : MonoBehaviour
         }
     }
 
-    public IEnumerator Register(string username, string password, string repeatedPassword)
+    public IEnumerator Register(string username, string password, string repeatPassword)
     {
         WWWForm form = new WWWForm();
         form.AddField("username", username);
         form.AddField("password", password);
-        form.AddField("repeatedpassword", repeatedPassword);
+        form.AddField("repeatPassword", repeatPassword);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/GitHub/GameDev/PlatformHub/PlatformHub/registerbackend.php", form))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost/GitHub/GameDev/PlatformHub/PlatformHub/registerUnity.php", form))
         {
+            www.certificateHandler = new AcceptAllCertificatesSignedWithASpecificPublicKey();
+
             yield return www.SendWebRequest();
 
             if (www.result != UnityWebRequest.Result.Success)
