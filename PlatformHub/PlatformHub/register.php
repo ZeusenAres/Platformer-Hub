@@ -1,54 +1,33 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>register</title>
     <?php
-    require_once 'Classes/Register.class.php';
-    $db = new Register();
-    $db->DBConnect();
+    require_once('Classes/RegisterController.Class.php');
+    $register = new RegisterController('users');
     ?>
 </head>
 <body>
-    <form action="register.php" method="post">
-        <table>
-            <tr>
-                <td>Gebruiker</td>
-                <td>
-                    <input type="text" name="user" />
-                </td>
-            </tr>
-            <tr>
-                <td>Wachtwoord</td>
-                <td>
-                    <input type="password" name="password" />
-                </td>
-            </tr>
-            <tr>
-                <td>Herhaal wachtwoord</td>
-                <td>
-                    <input type="password" name="repeatedPassword" />
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <input type="submit" name="newUser" value="Opslaan" />
-                </td>
-            </tr>
-        </table>
+    <form action="#" method="post">
+        <input name="username" type="text" placeholder="Username" />
+        <input name="password" type="password" placeholder="Password" />
+        <input name="repeatPassword" type="password" placeholder="Repeat Password" />
+        <input name="register" type="submit" value="Register" />
     </form>
+
+    <?php
+    if(isset($_POST['register']))
+    {
+        try
+        {
+            $register->registerUser($username, $password, $repeatPassword);
+            header('Location: home.php');
+        }
+        catch(Exception $e)
+        {
+            echo $e->getMessage();
+        }
+    }
+    ?>
 </body>
 </html>
-
-<?php
-if (isset($_POST['newUser']))
-{
-    try
-    {
-        $db->CreateUser($_POST['user'], $_POST['password'], $_POST['repeatedPassword']);
-        header('Location: index.php');
-    }
-    catch (Exception $ex)
-    {
-        echo $ex->getMessage() . "<br />";
-    }
-}
-?>
