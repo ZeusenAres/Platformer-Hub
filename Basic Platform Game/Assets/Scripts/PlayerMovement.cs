@@ -19,12 +19,20 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
-        rb2d.velocity = new Vector2(horizontalInput * speed, rb2d.velocity.y);
+
+        rb2d.velocity = new Vector2
+        {
+            x = horizontalInput * speed,
+            y = rb2d.velocity.y
+        };
+
+        anim.SetBool("Run", horizontalInput != 0);
+
         if (horizontalInput != 0)
         {
             sprite.flipX = horizontalInput < 0;
         }
-        anim.SetBool("Run", horizontalInput != 0);
+
         if (isGrounded && Input.GetKey(KeyCode.Space))
         {
             rb2d.velocity = new Vector2
